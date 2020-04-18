@@ -12,3 +12,10 @@ my_parser = argparse.ArgumentParser(description='Data visualization of music lis
 #execute the parse_args() method
 args = my_parser.parse_args()
 
+# attempt to open the shared file
+from ctypes import *
+library = "./libbarchart.so"
+barChart = CDLL(library)
+
+print(barChart.getGraphWidth(8,3,3))
+
