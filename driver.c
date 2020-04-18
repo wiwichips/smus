@@ -1,8 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "output.h"
+#include "driver.h"
 
-int main() {
+int driver() {
 
 	int n = 11;
 	int h = 5;

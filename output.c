@@ -49,7 +49,8 @@ int getGraphWidth(int n, int thick, int c) {
 // h is height, thick is bar width, n is num things
 char** getGraph(int* values, int n, int h, int thick, char** desc) {
 	// find how many characters are required for number on y 
-	int c = snprintf(NULL, n + 20, "%d", h);
+	// int c = snprintf(NULL, n + 20, "%d", h);
+	int c = 0;
 
 	// create canvas for graph to be printed on (graph is (-y,x))
 	char** graph = calloc(h + 2, sizeof(char));

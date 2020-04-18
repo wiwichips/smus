@@ -17,5 +17,5 @@ from ctypes import *
 library = "./libbarchart.so"
 barChart = CDLL(library)
 
-print(barChart.getGraphWidth(8,3,3))
+print(barChart.driver())
 
