@@ -1,5 +1,32 @@
 #include "output.h"
 
+/// Create Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+char** createEmptyGraph(int* values, int n, int h, int thick) {
+	int scaleHeight = getScaleHeight(values, n);
+	int c = snprintf(NULL, 0, "%d", scaleHeight); // required characters for num
+	int w = getGraphWidth(n, thick, c); // width of the graph
+
+	// create canvas for graph to be printed on (graph is (-y,x))
+	char** graph = calloc(h + 2, sizeof(char*));
+	for(int i = 0; i < h + 2; i++) {
+		graph[i] = calloc(w + 1, sizeof(char)); 
+		memset(graph[i], ' ', sizeof(char) * w);
+	}
+
+	return graph;
+}
+
+/// Delete functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+/// Getter functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+double getLevels(int value, int h, int c10) {
+	return (int) (value) / (double) c10 * h;
+}
+
+int getGraphWidth(int n, int thick, int c) {
+	return n * (thick + 1) + c + 2;
+}
+
 int getGreatest(int* values, int n) {
 	int maxIndex = 0;	
 	for(int i = 0; i < n; i++) {
@@ -9,6 +36,26 @@ int getGreatest(int* values, int n) {
 	}
 
 	return maxIndex;
+}
+
+int getScaleHeight(int* values, int n) {
+	int maxIndex = getGreatest(values, n);
+	return (int) ceil((double) values[maxIndex] / 10.0)*10;
+}
+
+
+/// Modifier functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void populateGraph(char** graph, int* values, int n, int h, int thick) {
+	int c = snprintf(NULL, 0, "%d", h); // required characters for num
+	int w = getGraphWidth(n, thick, c); // width of the graph
+
+	for(int i = h-1; i >= 0; i--) {
+		for(int j = 0; j < w; j++) {
+
+		}
+	}
+
+	return;
 }
 
 char* insertString(char* string, char* toBeInserted, int index) {
@@ -37,51 +84,8 @@ char* insertString(char* string, char* toBeInserted, int index) {
 	return string;
 }
 
-// h is height of graph, c10 is highest number rounded up to 10
-double getLevels(int value, int h, int c10) {
-	return (int) (value) / (double) c10 * h;
-}
 
-int getGraphWidth(int n, int thick, int c) {
-	return n * (thick + 1) + c + 2;
-}
-
-int getScaleHeight(int* values, int n) {
-	int maxIndex = getGreatest(values, n);
-	return (int) ceil((double) values[maxIndex] / 10.0)*10;
-}
-
-// h is height, thick is bar width, n is num things
-char** createEmptyGraph(int* values, int n, int h, int thick) {
-	int scaleHeight = getScaleHeight(values, n);
-	int c = snprintf(NULL, 0, "%d", scaleHeight); // required characters for num
-	int w = getGraphWidth(n, thick, c); // width of the graph
-
-	// create canvas for graph to be printed on (graph is (-y,x))
-	char** graph = calloc(h + 2, sizeof(char*));
-	for(int i = 0; i < h + 2; i++) {
-		graph[i] = calloc(w + 1, sizeof(char)); 
-		memset(graph[i], ' ', sizeof(char) * w);
-	}
-
-	return graph;
-}
-
-void populateGraph(char** graph, int* values, int n, int h, int thick) {
-	int c = snprintf(NULL, 0, "%d", h); // required characters for num
-	int w = getGraphWidth(n, thick, c); // width of the graph
-
-	for(int i = h-1; i >= 0; i--) {
-		for(int j = 0; j < w; j++) {
-
-		}
-	}
-
-	return;
-}
-
-// DEPRECATED FUNCTIONS TO DELETE
-/// functions for horizontal bar chartsq
+/// Deprecated functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*
 char* horCreateLegend(int graphSize, int maxHeight) {
 	// allocate size for the string

@@ -26,7 +26,7 @@ char** createEmptyGraph(int* values, int n, int h, int thick);
  *@return number of blocks required for each value given a height h
  *@param value - scrobble for a specific bar
  *@param h - height of the bar chart
- *@param c10 - highest value rounded up to nearest ten used for scale
+ *@param c10 - highest value rounded up to nearest ten, used for scale
 **/
 double getLevels(int value, int h, int c10);
 
@@ -79,7 +79,7 @@ void populateGraph(char** graph, int* values, int n, int h, int thick);
 char* insertString(char* string, char* toBeInserted, int index);
 
 
-/// deprecated functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/// Deprecated functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // creates a string to use for the legend measure (string must free)
 char* horCreateLegend(int graphSize, int maxHeight); 
