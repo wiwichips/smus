@@ -3,7 +3,7 @@
 int driver() {
 
 	int n = 11;
-	int h = 7;
+	int h = 10;
 
 	int* values = calloc(n, sizeof(int));
 
@@ -13,7 +13,7 @@ int driver() {
 	values[3] = 33;
 	values[4] = 34;
 	values[5] = 35;
-	values[6] = 36;
+	values[6] = 14;
 	values[7] = 37;
 	values[8] = 38;
 	values[9] = 39;
@@ -47,7 +47,7 @@ int test1() {
 	values[3] = 33;
 	values[4] = 34;
 	values[5] = 35;
-	values[6] = 36;
+	values[6] = 7;
 	values[7] = 37;
 	values[8] = 38;
 	values[9] = 39;

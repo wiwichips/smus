@@ -49,21 +49,33 @@ int getMarginSize(int* values, int n) {
 
 int getLevel(int* values, int n, int index, int h) {
 	int c10 = getScaleHeight(values, n);
-	return getLevelRatio(values[index], h, c10);
+	return (int) getLevelRatio(values[index], h, c10);
 }
 
 /// Modifier functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void populateGraph(char** graph, int* values, int n, int h, int thick) {
-	int c = getMarginSize(values, n);
-	int w = getGraphWidth(values, n, thick); // width of the graph
+	int marg = getMarginSize(values, n);
+	int width = getGraphWidth(values, n, thick); // width of the graph
 
-	for(int i = h-1, l = 0; i >= 0; i--) {
-		int level = getLevel(values, n, 0, h);
+	for(int i = 0, b = 0, p = 0, s = 1; i < width - marg; i++) {
 
-		for(int j = 0; j < w - c; j++) {
-			if(++l < level)
-			graph[i][j+c] = '#';
+		if(++p >= thick + 1) {
+			p = 0;
+			b++;
+			printf("b = %d\n", b);
 		}
+
+		int level = getLevel(values, n, b, h);
+
+		for(int j = h - 1; j >= 0; j--) {
+			if(h - j < level) {
+				graph[j][i + marg] = '#';
+			} else if (s) {
+				graph[j][i + marg] = '0' + b;
+				s = 0;
+			}
+		}
+		s = 1;
 	}
 
 	// add y margin labels
