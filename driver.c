@@ -3,7 +3,7 @@
 int driver() {
 
 	int n = 11;
-	int h = 5;
+	int h = 7;
 
 	int* values = calloc(n, sizeof(int));
 
@@ -20,13 +20,15 @@ int driver() {
 	values[10] = 40;
 
 	// printf("returnTwo test = %d\n", horPrintGraph(1, h, values, n));
-	char** graph = getGraph(values, 11, h, 1, NULL);
+	char** graph = createEmptyGraph(11, h, 1);
 
 	for(int i = 0; i < h + 2; i++) {
-		// printf(">%s<\n", graph[i]);
+		printf(">%s<\n", graph[i]);
+		free(graph[i]);
 	}
 
 	free(values);
+	free(graph);
 	return 0;
 }
 

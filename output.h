@@ -10,8 +10,13 @@ double getLevels(int value, int h, int c10);
 // returns horizontal size of graph
 int getGraphWidth(int n, int thick, int c);
 
+
+
+/// graph functions
+// creates an empty canvas for the graph
+char** createEmptyGraph(int n, int h, int thick);
 // returns the graph as a 2d string
-char** getGraph(int* values, int n, int h, int thick, char** desc);
+char** populateGraph(int* values, int n, int h, int thick, char** desc);
 
 // returns the index of the greatest value of the array
 int findGreatest(int* values, int numValues);
