@@ -20,7 +20,7 @@ int driver() {
 	values[10] = 40;
 
 	// printf("returnTwo test = %d\n", horPrintGraph(1, h, values, n));
-	char** graph = createEmptyGraph(11, h, 1);
+	char** graph = createEmptyGraph(values, 11, h, 1);
 
 	for(int i = 0; i < h + 2; i++) {
 		printf(">%s<\n", graph[i]);

@@ -1,6 +1,6 @@
 #include "output.h"
 
-int findGreatest(int* values, int n) {
+int getGreatest(int* values, int n) {
 	int maxIndex = 0;	
 	for(int i = 0; i < n; i++) {
 		if(values[maxIndex] < values[i]) {
@@ -46,9 +46,15 @@ int getGraphWidth(int n, int thick, int c) {
 	return n * (thick + 1) + c + 2;
 }
 
+int getScaleHeight(int* values, int n) {
+	int maxIndex = getGreatest(values, n);
+	return (int) ceil((double) values[maxIndex] / 10.0)*10;
+}
+
 // h is height, thick is bar width, n is num things
-char** createEmptyGraph(int n, int h, int thick) {
-	int c = snprintf(NULL, 0, "%d", h); // required characters for num
+char** createEmptyGraph(int* values, int n, int h, int thick) {
+	int scaleHeight = getScaleHeight(values, n);
+	int c = snprintf(NULL, 0, "%d", scaleHeight); // required characters for num
 	int w = getGraphWidth(n, thick, c); // width of the graph
 
 	// create canvas for graph to be printed on (graph is (-y,x))
@@ -62,9 +68,11 @@ char** createEmptyGraph(int n, int h, int thick) {
 }
 
 void populateGraph(char** graph, int* values, int n, int h, int thick) {
-	
+	int c = snprintf(NULL, 0, "%d", h); // required characters for num
+	int w = getGraphWidth(n, thick, c); // width of the graph
+
 	for(int i = h-1; i >= 0; i--) {
-		for(int j = 0; j < getGraphWidth(n, thick, snprintf(NULL, 0, "%d", h)); j++) {
+		for(int j = 0; j < w; j++) {
 
 		}
 	}
@@ -74,6 +82,7 @@ void populateGraph(char** graph, int* values, int n, int h, int thick) {
 
 // DEPRECATED FUNCTIONS TO DELETE
 /// functions for horizontal bar chartsq
+/*
 char* horCreateLegend(int graphSize, int maxHeight) {
 	// allocate size for the string
 	char* string = calloc(graphSize+16, sizeof(char)); //+16 abritrary
@@ -100,7 +109,7 @@ char* horCreateLegend(int graphSize, int maxHeight) {
 }
 
 int horPrintGraph(int thick, int graphSize, int* values, int n){
-	int maxIndex = findGreatest(values, n);
+	int maxIndex = getGreatest(values, n);
 
 	/// set a height for the graph round up to the nearest ten
 	int maxHeight = (int) ceil((double) values[maxIndex] / 10.0)*10;
@@ -129,3 +138,4 @@ int horPrintGraph(int thick, int graphSize, int* values, int n){
 	// if successful return non zero
 	return maxHeight;
 }
+*/
