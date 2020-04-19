@@ -59,3 +59,8 @@ for(int i = 0; i < n; i++) {
 	}
 	addSlab(canvas, i, j);
 }
+
+unfortunately the █ charcter is one more than can fit in one char.
+so I will substitute it for #. Slabs will be substituted for other
+character. Will create a special function that will replace these
+with the block and slab charactres in output.

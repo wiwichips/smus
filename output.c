@@ -17,7 +17,7 @@ char** createEmptyGraph(int* values, int n, int h, int thick) {
 /// Delete functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 /// Getter functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-double getLevels(int value, int h, int c10) {
+double getLevelRatio(int value, int h, int c10) {
 	return (int) (value) / (double) c10 * h;
 }
 
@@ -44,18 +44,32 @@ int getScaleHeight(int* values, int n) {
 
 int getMarginSize(int* values, int n) {
 	int scaleHeight = getScaleHeight(values, n);
-	return snprintf(NULL, 0, "%d", scaleHeight);
+	return snprintf(NULL, 0, "%d ", scaleHeight);
+}
+
+int getLevel(int* values, int n, int index, int h) {
+	int c10 = getScaleHeight(values, n);
+	return getLevelRatio(values[index], h, c10);
 }
 
 /// Modifier functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void populateGraph(char** graph, int* values, int n, int h, int thick) {
+	int c = getMarginSize(values, n);
 	int w = getGraphWidth(values, n, thick); // width of the graph
 
-	for(int i = h-1; i >= 0; i--) {
-		for(int j = 0; j < w; j++) {
+	for(int i = h-1, l = 0; i >= 0; i--) {
+		int level = getLevel(values, n, 0, h);
 
+		for(int j = 0; j < w - c; j++) {
+			if(++l < level)
+			graph[i][j+c] = '#';
 		}
 	}
+
+	// add y margin labels
+	insertString(graph[0], "40", 0);
+	insertString(graph[h/2], "20", 0);
+	insertString(graph[h-1], "0", 0);
 
 	return;
 }

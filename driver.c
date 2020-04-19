@@ -22,6 +22,8 @@ int driver() {
 	// printf("returnTwo test = %d\n", horPrintGraph(1, h, values, n));
 	char** graph = createEmptyGraph(values, 11, h, 1);
 
+	populateGraph(graph, values, n, h, 1);
+
 	for(int i = 0; i < h + 2; i++) {
 		printf(">%s<\n", graph[i]);
 		free(graph[i]);
@@ -58,12 +60,12 @@ int test1() {
 
 	// get information for bar levels
 	for(int i = 0; i < n; i++) {
-		levels[i] = (int) getLevels(values[i], h, 40);
+		levels[i] = (int) getLevelRatio(values[i], h, 40);
 	}
 
 	// get information for slabs
 	for(int i = 0; i < n; i++) {
-		slabs[i] = (int) (getLevels(values[i], h, 40) * 8 - levels[i] * 8);
+		slabs[i] = (int) (getLevelRatio(values[i], h, 40) * 8 - levels[i] * 8);
 	}
 
 	for(int i = 0; i < n; i++) {

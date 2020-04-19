@@ -28,7 +28,7 @@ char** createEmptyGraph(int* values, int n, int h, int thick);
  *@param h - height of the bar chart
  *@param c10 - highest value rounded up to nearest ten, used for scale
 **/
-double getLevels(int value, int h, int c10);
+double getLevelRatio(int value, int h, int c10);
 
 /** Gets the width of the graph canvas 
  *@return graph width
@@ -56,6 +56,8 @@ int getGreatest(int* values, int n);
 int getScaleHeight(int* values, int n);
 
 int getMarginSize(int* values, int n);
+
+int getLevel(int* values, int n, int index, int h);
 
 /// Modifier functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
