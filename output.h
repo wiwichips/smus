@@ -16,7 +16,7 @@ int getGraphWidth(int n, int thick, int c);
 // creates an empty canvas for the graph
 char** createEmptyGraph(int n, int h, int thick);
 // returns the graph as a 2d string
-char** populateGraph(int* values, int n, int h, int thick, char** desc);
+void populateGraph(char** graph, int* values, int n, int h, int thick);
 
 // returns the index of the greatest value of the array
 int findGreatest(int* values, int numValues);
