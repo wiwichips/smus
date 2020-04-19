@@ -2,9 +2,7 @@
 
 /// Create Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 char** createEmptyGraph(int* values, int n, int h, int thick) {
-	int scaleHeight = getScaleHeight(values, n);
-	int c = snprintf(NULL, 0, "%d", scaleHeight); // required characters for num
-	int w = getGraphWidth(n, thick, c); // width of the graph
+	int w = getGraphWidth(values, n, thick); // width of the graph
 
 	// create canvas for graph to be printed on (graph is (-y,x))
 	char** graph = calloc(h + 2, sizeof(char*));
@@ -23,7 +21,8 @@ double getLevels(int value, int h, int c10) {
 	return (int) (value) / (double) c10 * h;
 }
 
-int getGraphWidth(int n, int thick, int c) {
+int getGraphWidth(int* values, int n, int thick) {
+	int c = getMarginSize(values, n);
 	return n * (thick + 1) + c + 2;
 }
 
@@ -43,11 +42,14 @@ int getScaleHeight(int* values, int n) {
 	return (int) ceil((double) values[maxIndex] / 10.0)*10;
 }
 
+int getMarginSize(int* values, int n) {
+	int scaleHeight = getScaleHeight(values, n);
+	return snprintf(NULL, 0, "%d", scaleHeight);
+}
 
 /// Modifier functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void populateGraph(char** graph, int* values, int n, int h, int thick) {
-	int c = snprintf(NULL, 0, "%d", h); // required characters for num
-	int w = getGraphWidth(n, thick, c); // width of the graph
+	int w = getGraphWidth(values, n, thick); // width of the graph
 
 	for(int i = h-1; i >= 0; i--) {
 		for(int j = 0; j < w; j++) {
@@ -63,16 +65,7 @@ char* insertString(char* string, char* toBeInserted, int index) {
 	int toBeInsertedLength = strlen(toBeInserted);
 	
 	// error checking
-	if(!string) {
-		return NULL;
-	}
-
-	if(!toBeInserted || !toBeInsertedLength) {
-		return string;
-	}
-	
-	if(stringLength - index - toBeInsertedLength < 0) {
-		// not enough room to fit the string, return null as a failure
+	if(!string || stringLength - index - toBeInsertedLength < 0) {
 		return NULL;
 	}
 
@@ -83,7 +76,6 @@ char* insertString(char* string, char* toBeInserted, int index) {
 
 	return string;
 }
-
 
 /// Deprecated functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*

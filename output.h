@@ -34,9 +34,9 @@ double getLevels(int value, int h, int c10);
  *@return graph width
  *@param n - number of bars
  *@param thick - how many characters wide each bar is
- *@param c - the width of the y axis margin
+ *@param values - array of scrobbles per bar
 **/
-int getGraphWidth(int n, int thick, int c);
+int getGraphWidth(int* values, int n, int thick);
 
 /** Gets the index of the greatest value of the array
  *@pre values has been set
@@ -55,6 +55,7 @@ int getGreatest(int* values, int n);
 **/
 int getScaleHeight(int* values, int n);
 
+int getMarginSize(int* values, int n);
 
 /// Modifier functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
