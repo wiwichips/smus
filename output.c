@@ -63,7 +63,7 @@ char** getGraph(int* values, int n, int h, int thick, char** desc) {
 }
 
 // DEPRECATED FUNCTIONS TO DELETE
-/// functions for horizontal bar charts
+/// functions for horizontal bar chartsq
 char* horCreateLegend(int graphSize, int maxHeight) {
 	// allocate size for the string
 	char* string = calloc(graphSize+16, sizeof(char)); //+16 abritrary

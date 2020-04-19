@@ -2,7 +2,10 @@ CC=gcc
 CFLAGS=-std=c11 -g -pedantic -Wall
 
 #main: main.c output.c output.h
-#	$(CC) $(CFLAGS) main.c output.c -lm output.h -o main	
+#	$(CC) $(CFLAGS) main.c output.c -lm output.h -o main
+
+all: libbarchart.so
+	python3 smus.py
 
 libbarchart.so: output.o driver.o
 	$(CC) -shared -o libbarchart.so output.o driver.o -lm
