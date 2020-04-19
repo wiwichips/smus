@@ -49,14 +49,15 @@ int getGraphWidth(int n, int thick, int c) {
 // h is height, thick is bar width, n is num things
 char** getGraph(int* values, int n, int h, int thick, char** desc) {
 	// find how many characters are required for number on y 
-	// int c = snprintf(NULL, n + 20, "%d", h);
-	int c = 0;
+	int c = snprintf(NULL, 0, "%d", h);
 
 	// create canvas for graph to be printed on (graph is (-y,x))
 	char** graph = calloc(h + 2, sizeof(char));
 	for(int i = 0; i < h + 2; i++) {
-		graph[i] = calloc(getGraphWidth(n, thick, c) + 1, sizeof(char));
+		graph[i] = calloc(getGraphWidth(n, thick, c) + 2, sizeof(char));
+		// set all characters to spaces
 		memset(graph, ' ', sizeof(char) * getGraphWidth(n, thick, c));
+printf("graph[i] = <%s>\n", graph[i]);
 	}
 
 	return graph;

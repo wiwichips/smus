@@ -20,6 +20,36 @@ int driver() {
 	values[10] = 40;
 
 	// printf("returnTwo test = %d\n", horPrintGraph(1, h, values, n));
+	char** graph = getGraph(values, 11, h, 1, NULL);
+
+	for(int i = 0; i < h + 2; i++) {
+		// printf(">%s<\n", graph[i]);
+	}
+
+	free(values);
+	return 0;
+}
+
+int test1() {
+
+	int n = 11;
+	int h = 5;
+
+	int* values = calloc(n, sizeof(int));
+
+	values[0] = 30;
+	values[1] = 31;
+	values[2] = 32;
+	values[3] = 33;
+	values[4] = 34;
+	values[5] = 35;
+	values[6] = 36;
+	values[7] = 37;
+	values[8] = 38;
+	values[9] = 39;
+	values[10] = 40;
+
+	// printf("returnTwo test = %d\n", horPrintGraph(1, h, values, n));
 
 	int* levels = calloc(n, sizeof(int));
 	int* slabs = calloc(n, sizeof(int));
@@ -50,4 +80,3 @@ int driver() {
 
 	return 0;
 }
-
