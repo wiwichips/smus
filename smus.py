@@ -1,28 +1,14 @@
 #imports
 import argparse # for parsing command line arguments
-import requests # for get requests
 import json
 import os
 import sys
 
+#import other files
+import lastfmget as APIget
+
 ## functions
-# function for lastfm get requests
-def lastfm_get(method):
-	# define headers and URL
-    headers = {'user-agent': 'smus'}
-    url = 'http://ws.audioscrobbler.com/2.0/'
-
-    # Add API key and format to the payload
-    payload = {
-		'api_key': 'ad442a0e29b05a2834314212926fa974',
-		'user': 'wiwichips',
-		'method': method,
-		'format': 'json'
-	}
-
-    response = requests.get(url, headers=headers, params=payload)
-    return response
-
+#delete this function later - just used for testing
 def jprint(obj):
     # create a formatted string of the Python JSON object
     text = json.dumps(obj, sort_keys=True, indent=4)
@@ -45,6 +31,9 @@ barChart = CDLL(library)
 #barChart.driver()
 
 # Call lastfm API
-r = lastfm_get('user.getInfo');
+payload = {
+    'method': 'user.getInfo'
+}
+r = APIget.__lastfmGetUserDefault(payload)
 jprint(r.json()['user']['playcount'])
 
