@@ -1,7 +1,7 @@
 #imports
 import requests # for get requests
 
-### Generic functions to keep the get request process clean
+### Generic functions to keep the get request process clean ~~~~~~~~~~
 
 ## primary get request function that every get request uses
 
@@ -45,7 +45,7 @@ def __lastfmGetUser(payload, user):
 
     return response
 
-### Function wrappers for specific get requests
+### Function wrappers for specific get requests ~~~~~~~~~~~~~~~~~~~~~~
 
 # returns full json response from user.getInfo
 #   pass "" if want to use the default user stored in config file
@@ -59,3 +59,27 @@ def userGetInfo(user):
     response = __lastfmGetUser(payload, user)
     return response
 
+# returns full json response from user.getRecentTracks
+# ex. print(response.json()['recenttracks']['track'][0]['name'])
+def userGetRecentTracks(user, limit):
+    # define payload
+    payload = {
+        'method': 'user.getRecentTracks',
+        'limit': limit
+    }
+
+    response = __lastfmGetUser(payload, user)
+    return response
+
+
+
+
+
+### Testing functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# prints the recent tracks - num specifies how many
+def printRecentTracks(num):
+    r = userGetRecentTracks("wiwichips", num)
+
+    for track in r.json()['recenttracks']['track']:
+        print(track['name'])

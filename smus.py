@@ -32,6 +32,5 @@ barChart = CDLL(library)
 
 # Call lastfm API
 
-r = APIget.userGetInfo("karsixxx")
-jprint(r.json())
-
+r = APIget.userGetRecentTracks("wiwichips", 4)
+jprint(r.json()['recenttracks']['track'][0]['name'])
