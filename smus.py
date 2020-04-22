@@ -1,4 +1,4 @@
-#imports
+# imports
 import argparse # for parsing command line arguments
 import json
 import os
@@ -8,7 +8,7 @@ import sys
 import lastfmget as APIget
 
 ## functions
-#delete this function later - just used for testing
+# delete this function later - just used for testing
 def jprint(obj):
     # create a formatted string of the Python JSON object
     text = json.dumps(obj, sort_keys=True, indent=4)
@@ -19,7 +19,7 @@ my_parser = argparse.ArgumentParser(description='Data visualization of music lis
 			epilog='The CLI Scrobbler Statistic Analysis program',
 			prefix_chars='-')
 
-#execute the parse_args() method
+# execute the parse_args() method
 args = my_parser.parse_args()
 
 # attempt to open the shared file
@@ -31,9 +31,7 @@ barChart = CDLL(library)
 #barChart.driver()
 
 # Call lastfm API
-payload = {
-    'method': 'user.getInfo'
-}
-r = APIget.__lastfmGetUserDefault(payload)
-jprint(r.json()['user']['playcount'])
+
+r = APIget.userGetInfo("karsixxx")
+jprint(r.json())
 
