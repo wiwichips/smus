@@ -6,7 +6,10 @@ import sys
 import time
 
 #import other files
-import lastfmget as APIget
+import lastfmget as APIget # this line is no longer needed, remove it
+
+# get the class from chart.py
+from chart import chart
 
 #create the parser
 parser = argparse.ArgumentParser(description='Data visualization of '
@@ -48,6 +51,25 @@ if (numConflicts > 1 or (args.setuser and args.tempuser)):
     sys.exit(1)
 
 
+## Get data from last fm api
+#set user to "" for default or if user used args.tempuser
+user = ""
+if(args.tempuser):
+    user = args.tempuser
+
+#if week or default
+if(not len(sys.argv) > 1) or (args.week):
+    print("week")
+elif(args.month):
+    barChart = chart("month", user)
+    print(barChart.getValues())
+
+elif(args.year):
+    print("year")
+elif(args.yearly):
+    print("yearly")
+
+
 # attempt to open the shared file
 from ctypes import *
 library = "./libbarchart.so"
@@ -59,4 +81,4 @@ barChart = CDLL(library)
 # Call lastfm API
 
 
-print(APIget.getNumScrobbles("", 2.5,1.5))
+# print(APIget.getNumScrobbles(user, 2.5,1.5))
