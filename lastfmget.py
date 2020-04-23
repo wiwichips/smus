@@ -80,16 +80,6 @@ def userGetRecentTracks(user, limit, page, startDate, endDate):
     response = __lastfmGetUser(payload, user)
     return response
 
-#
-def userGetWeeklyChartList(user):
-    # define payload
-    payload = {
-        'method': 'user.getWeeklyChartList',
-    }
-
-    response = __lastfmGetUser(payload, user)
-    return response
-
 ### Helper functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # gives the unix date for a specific offset in days of current time
