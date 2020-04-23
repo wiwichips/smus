@@ -66,12 +66,14 @@ def userGetInfo(user):
     return response
 
 # returns full json response from user.getRecentTracks
-# ex. print(response.json()['recenttracks']['track'][0]['name'])
-def userGetRecentTracks(user, limit):
+def userGetRecentTracks(user, limit, page, startDate):
     # define payload
     payload = {
         'method': 'user.getRecentTracks',
-        'limit': limit
+        'limit': limit,
+        'page': page,
+        'start': startDate,
+        'to': round(time.time())
     }
 
     response = __lastfmGetUser(payload, user)
@@ -80,7 +82,7 @@ def userGetRecentTracks(user, limit):
 #
 def userGetWeeklyChartList(user):
     # define payload
-    payload = { 
+    payload = {
         'method': 'user.getWeeklyChartList',
     }
 

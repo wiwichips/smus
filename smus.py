@@ -3,6 +3,7 @@ import argparse # for parsing command line arguments
 import json
 import os
 import sys
+import time
 
 #import other files
 import lastfmget as APIget
@@ -32,5 +33,5 @@ barChart = CDLL(library)
 
 # Call lastfm API
 
-r = APIget.userGetWeeklyChartList("wiwichips")
-jprint(r.json())
+r = APIget.userGetRecentTracks("wiwichips", 50, 1, 1587513600)
+jprint(len(r.json()['recenttracks']['track']))
