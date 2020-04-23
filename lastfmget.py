@@ -119,3 +119,9 @@ def printRecentTracks(num):
 
     for track in r.json()['recenttracks']['track']:
         print(track['name'])
+
+# delete this function later - just used for testing to print jsons
+def jprint(obj):
+    # create a formatted string of the Python JSON object
+    text = json.dumps(obj, sort_keys=True, indent=4)
+    print(text)
