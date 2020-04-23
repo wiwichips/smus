@@ -2,6 +2,9 @@
 import json
 import lastfmget as APIget
 
+# global variable that stores 24 hours represented in unix time
+dayLength = 86400
+
 # used to store and create the bar chart data structure
 class chart:
 
@@ -18,8 +21,15 @@ class chart:
 ### Functions
 
 # returns an array of scrobbles per day
-def getScrobblesPerDay(numdays):
-    return 2
+def getScrobblesPerDay(user, numdays):
+
+    values = []
+
+    for i in range (0, numdays):
+        values.append(APIget.getNumScrobbles(user, i + 0.5, i - 0.5))
+    
+    return values
+
 
 # returns an array of scrobbles per month
 def getScrobblesPerMonth(numMonths):
@@ -32,6 +42,6 @@ def getScrobblesPerYear():
 
 def createValuesArray(type, user):
 
-    values = ["example", "example1", "example2"]
+    values = getScrobblesPerDay(user, 7)
 
     return values
