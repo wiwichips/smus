@@ -1,5 +1,9 @@
 #imports
 import requests # for get requests
+import time # to get the current unix time
+
+# global variable that stores 24 hours represented in unix time
+dayLength = 86400
 
 ### Generic functions to keep the get request process clean ~~~~~~~~~~
 
@@ -47,6 +51,8 @@ def __lastfmGetUser(payload, user):
 
 ### Function wrappers for specific get requests ~~~~~~~~~~~~~~~~~~~~~~
 
+## user get requests
+
 # returns full json response from user.getInfo
 #   pass "" if want to use the default user stored in config file
 #   have to error check response after calling this function
@@ -71,8 +77,15 @@ def userGetRecentTracks(user, limit):
     response = __lastfmGetUser(payload, user)
     return response
 
+#
+def userGetWeeklyChartList(user):
+    # define payload
+    payload = { 
+        'method': 'user.getWeeklyChartList',
+    }
 
-
+    response = __lastfmGetUser(payload, user)
+    return response
 
 
 ### Testing functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
