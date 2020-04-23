@@ -67,13 +67,14 @@ def userGetInfo(user):
     return response
 
 # returns full json response from user.getRecentTracks
-def userGetRecentTracks(user, limit, page, startDate):
+def userGetRecentTracks(user, limit, page, startDate, endDate):
     # define payload
     payload = {
         'method': 'user.getRecentTracks',
         'limit': limit,
         'page': page,
-        'from': startDate
+        'from': startDate,
+        'to': endDate
     }
 
     response = __lastfmGetUser(payload, user)
@@ -89,6 +90,37 @@ def userGetWeeklyChartList(user):
     response = __lastfmGetUser(payload, user)
     return response
 
+### Helper functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# gives the unix date for a specific offset in days of current time
+def getTimeFromOffset(offset):
+    # get the amount of seconds in a day
+    timeDiff = offset * 86400
+
+    # get the current date in unix time
+    currentDate = round(time.time())
+
+    # subtract the current time from the time difference
+    unixTime = int(currentDate - timeDiff)
+
+    return unixTime
+
+### Public functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# returns how many scrobbles there have been through time periods
+#   startOffset - number of days since the start of the period
+#   endOffset - number of days since the end of the period
+def getNumScrobbles(user, startOffset, endOffset):
+    # get unix time for the start and end date from day offset
+    startDate = getTimeFromOffset(startOffset)
+    endDate = getTimeFromOffset(endOffset)
+
+    # use the number of one track pages to count scrobbles
+    r = userGetRecentTracks("", 1, 1, startDate, endDate)
+    numScrobbles = (r.json()['recenttracks']['@attr']['totalPages'])   
+
+    return numScrobbles
+
 ### Testing functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # prints the recent tracks - num specifies how many
@@ -97,17 +129,3 @@ def printRecentTracks(num):
 
     for track in r.json()['recenttracks']['track']:
         print(track['name'])
-
-# returns how many scrobbles there have been through time periods
-#   timeFrame - number of days to look for
-def getNumScrobbles(user, timeFrame):
-    # get the number of seconds since the start of the period
-    timeDiff = int(timeFrame * dayLength)
-    currentDate = int(round(time.time()))
-
-    # get the list of recent tracks
-    res = userGetRecentTracks(user, 200, 1, currentDate - timeDiff)
-
-    # count how many scrobbles there are
-    numScrobbles = len(res.json()['recenttracks']['track'])
-    return numScrobbles

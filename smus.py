@@ -33,5 +33,5 @@ barChart = CDLL(library)
 
 # Call lastfm API
 
-r = APIget.getNumScrobbles("", 0.3)
-jprint(r)
+
+print(APIget.getNumScrobbles("", 2.5,1.5))
