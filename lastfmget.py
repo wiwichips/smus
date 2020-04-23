@@ -1,6 +1,7 @@
 #imports
 import requests # for get requests
 import time # to get the current unix time
+import json
 
 # global variable that stores 24 hours represented in unix time
 dayLength = 86400
@@ -72,8 +73,7 @@ def userGetRecentTracks(user, limit, page, startDate):
         'method': 'user.getRecentTracks',
         'limit': limit,
         'page': page,
-        'start': startDate,
-        'to': round(time.time())
+        'from': startDate
     }
 
     response = __lastfmGetUser(payload, user)
@@ -89,12 +89,25 @@ def userGetWeeklyChartList(user):
     response = __lastfmGetUser(payload, user)
     return response
 
-
 ### Testing functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # prints the recent tracks - num specifies how many
 def printRecentTracks(num):
-    r = userGetRecentTracks("wiwichips", num)
+    r = userGetRecentTracks("wiwichips", num, 1, int(time.time()))
 
     for track in r.json()['recenttracks']['track']:
         print(track['name'])
+
+# returns how many scrobbles there have been through time periods
+#   timeFrame - number of days to look for
+def getNumScrobbles(user, timeFrame):
+    # get the number of seconds since the start of the period
+    timeDiff = int(timeFrame * dayLength)
+    currentDate = int(round(time.time()))
+
+    # get the list of recent tracks
+    res = userGetRecentTracks(user, 200, 1, currentDate - timeDiff)
+
+    # count how many scrobbles there are
+    numScrobbles = len(res.json()['recenttracks']['track'])
+    return numScrobbles
